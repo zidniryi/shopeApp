@@ -2,12 +2,13 @@ import React, { Component } from 'react'
 import { Text, View, Image, ScrollView } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import styles from './styles/styleProduct'
+import LinearGradient from 'react-native-linear-gradient'
 
 export default class App extends Component {
   render() {
     return (
       <View style={styles.viewContainer}>
-        <View style={styles.viewSorting}>
+        <LinearGradient colors={['#FFFFFF', '#F4F4F4', '#F4F4F4']} style={styles.viewSorting}>
           <View>
             <Text style={styles.textResult}>
               500 products found
@@ -21,13 +22,12 @@ export default class App extends Component {
             <Icon
               name="filter"
               size={22}
-              color='#5ED3C2'
+              color='#53AD15'
               style={styles.iconFilters}
             />
           </View>
-        </View>
+        </LinearGradient>
         <ScrollView>
-
           <View style={styles.viewRowProduct}>
             <View style={styles.viewProduct}>
               <Image source={{ uri: 'https://i.picsum.photos/id/6/320/200.jpg' }}
