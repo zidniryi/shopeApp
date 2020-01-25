@@ -14,6 +14,27 @@ const styles = StyleSheet.create({
     shadowRadius: 2.22,
     elevation: -3,
   },
+  viewSorting: {
+    width: responsiveWidth(100),
+    height: responsiveHeight(8),
+    backgroundColor: '#FFFFFF',
+    flexDirection: 'row',
+    justifyContent: 'space-between',
+    alignItems: 'center'
+  },
+  textResult: {
+    marginLeft: responsiveWidth(5.33)
+  },
+  viewFilter: {
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  textFilters: {
+    marginRight: responsiveWidth(2.33)
+  },
+  iconFilters: {
+    marginRight: responsiveWidth(5.33)
+  },
   viewRowProduct: {
     flexDirection: 'row',
     justifyContent: 'space-between',
