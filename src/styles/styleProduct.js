@@ -104,7 +104,24 @@ const styles = StyleSheet.create({
     },
     shadowOpacity: 3.22,
     shadowRadius: 6.22,
-  }
+  },
+  viewFooter: {
+    marginTop: responsiveHeight(1.33)
+  },
+  buttonShowMore: {
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#53AD15',
+    width: responsiveWidth(100),
+    height: responsiveHeight(5.33)
+  },
+
+  textShowMore: {
+    textAlign: 'center',
+    color: '#FFFFFF',
+    fontSize: responsiveFontSize(2.4)
+  },
 })
 
 export default styles
