@@ -5,6 +5,7 @@ import styles from './styles/styleProduct'
 import LinearGradient from 'react-native-linear-gradient'
 import Axios from 'axios'
 import compareDate from './libs/compareDate'
+import dollarFormatter from './libs/dollarFormatter'
 export default class App extends Component {
   constructor(props) {
     super(props)
@@ -118,7 +119,7 @@ export default class App extends Component {
                         <Text style={styles.textName}>{item.face}</Text>
                       </View>
                       <View style={styles.viewDesc}>
-                        <Text style={styles.textPrice}>$3.51</Text>
+                        <Text style={styles.textPrice}>$ {dollarFormatter(item.price)}</Text>
                         <Text style={styles.textTime}>{compareDate(item.date)} days ago</Text>
                       </View>
                       <View style={styles.viewCart}>
