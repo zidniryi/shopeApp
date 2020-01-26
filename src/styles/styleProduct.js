@@ -14,6 +14,13 @@ const styles = StyleSheet.create({
     shadowRadius: 2.22,
     elevation: -3,
   },
+  viewModal: {
+    flex: 1,
+    justifyContent: 'center',
+    backgroundColor: '#FFFFFF',
+    alignItems: 'center',
+    borderRadius: 10
+  },
   viewSorting: {
     width: responsiveWidth(100),
     height: responsiveHeight(8),
@@ -21,6 +28,23 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center'
+  },
+  buttonFilter: {
+    width: responsiveWidth(80),
+    height: responsiveHeight(8),
+    borderWidth: 3,
+    borderRadius: 10,
+    alignItems: 'center',
+    justifyContent: 'center'
+
+  },
+  touchFilter: {
+    borderRadius: 10,
+    marginVertical: responsiveHeight(1.66)
+  },
+  textItemFilter: {
+    fontSize: responsiveFontSize(2.3),
+    fontWeight: 'bold',
   },
   textResult: {
     marginLeft: responsiveWidth(5.33)

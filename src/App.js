@@ -1,18 +1,21 @@
 import React, { Component } from 'react'
-import { View, Text, FlatList, TouchableOpacity, ActivityIndicator, Image, TouchableHighlight } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, ActivityIndicator, Image, TouchableHighlight, Button } from 'react-native'
 import Icon from 'react-native-vector-icons/FontAwesome'
 import styles from './styles/styleProduct'
 import LinearGradient from 'react-native-linear-gradient'
 import Axios from 'axios'
 import compareDate from './libs/compareDate'
 import dollarFormatter from './libs/dollarFormatter'
+import Modal from 'react-native-modal'
 export default class App extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isLoading: true,
       dataProducts: [],
+      isLoading: true,
       isFetching: false,
+      isModalVisible: false,
+      filterBy: ''
     }
     // Default page in array is 0
     this.page = 0
@@ -21,7 +24,7 @@ export default class App extends Component {
   componentDidMount() {
     // Increased every data loaded
     this.page = this.page + 1
-    Axios.get(`http://192.168.43.166:3000/api/products?_page=${this.page}&_limit=20`)
+    Axios.get(this.filterLogic())
       .then((response) => {
         this.setState({ dataProducts: [...this.state.dataProducts, ...response.data], isLoading: false })
       })
@@ -31,6 +34,15 @@ export default class App extends Component {
 
   }
 
+  filterLogic() {
+    if (this.state.filterBy === 'size') {
+      const base_default_2 = `http://192.168.43.166:3000/api/products?_page=${this.page}&_limit=20&?_sort=price`
+      return base_default_2
+    } else {
+      const base_default = `http://192.168.43.166:3000/api/products?_page=${this.page}&_limit=20`
+      return base_default
+    }
+  }
 
   /**
    * @method
@@ -74,7 +86,18 @@ export default class App extends Component {
     )
   }
 
+  toggleModal = () => {
+    this.setState({ isModalVisible: !this.state.isModalVisible })
+  }
+
+  combineMethod = (filtersType) => {
+    this.toggleModal()
+    this.setState({ filterBy: filtersType })
+  }
+
+
   render() {
+    console.log(this.state.filterBy)
     return (
       <View style={styles.viewContainer}>
         <LinearGradient colors={['#FFFFFF', '#F4F4F4', '#F4F4F4']} style={styles.viewSorting}>
@@ -87,16 +110,41 @@ export default class App extends Component {
             <Text style={styles.textFilters}>
               Filters
             </Text>
-            <TouchableHighlight onPress={this.toggleModal}>
+            <TouchableOpacity onPress={this.toggleModal} activeOpacity={0.8}>
               <Icon
                 name="filter"
                 size={22}
                 color='#53AD15'
                 style={styles.iconFilters}
               />
-            </TouchableHighlight>
+            </TouchableOpacity>
           </View>
         </LinearGradient>
+        <Modal
+          isVisible={this.state.isModalVisible}
+          animationIn="slideInLeft"
+          animationOut="slideOutRight">
+          <View style={styles.viewModal}>
+            <Text>
+              Filter By
+            </Text>
+            <TouchableHighlight onPress={() => this.combineMethod('size')} style={styles.touchFilter}>
+              <View style={[styles.buttonFilter, { borderColor: '#3498db' }]}>
+                <Text style={[styles.textItemFilter, { color: '#3498db' }]}>size Z-A</Text>
+              </View>
+            </TouchableHighlight>
+            <TouchableHighlight onPress={this.toggleModal} style={styles.touchFilter}>
+              <View style={[styles.buttonFilter, { borderColor: '#2ecc71' }]}>
+                <Text style={[styles.textItemFilter, { color: '#2ecc71' }]}>Price Z-A</Text>
+              </View>
+            </TouchableHighlight>
+            <TouchableHighlight onPress={this.toggleModal} style={styles.touchFilter}>
+              <View style={[styles.buttonFilter, { borderColor: '#e74c3c' }]}>
+                <Text style={[styles.textItemFilter, { color: '#e74c3c' }]}>ID Z-A</Text>
+              </View>
+            </TouchableHighlight>
+          </View>
+        </Modal>
         {
           (this.state.isLoading)
             ?
