@@ -4,9 +4,8 @@ import Icon from 'react-native-vector-icons/FontAwesome'
 import styles from './styles/styleProduct'
 import LinearGradient from 'react-native-linear-gradient'
 import Axios from 'axios'
-import compareDate from './libs/compareDate'
-import dollarFormatter from './libs/dollarFormatter'
 import Modal from 'react-native-modal'
+import ListProducts from './components/ListProducts'
 export default class App extends Component {
   constructor(props) {
     super(props)
@@ -23,27 +22,31 @@ export default class App extends Component {
 
   componentDidMount() {
     // Increased every data loaded
+    this.loadFistData()
+  }
+
+  filterLogic() {
+    if (this.state.filterBy === 'price') {
+      const urlByPrice = `http://192.168.43.166:3000/api/products?_sort=price&_page=${this.page}&_limit=20`
+      return urlByPrice
+    }
+    else {
+      const urlDefault = `http://192.168.43.166:3000/api/products?_page=${this.page}&_limit=20`
+      return urlDefault
+    }
+  }
+
+  loadFistData = () => {
     this.page = this.page + 1
     Axios.get(this.filterLogic())
       .then((response) => {
+        console.log(response)
         this.setState({ dataProducts: [...this.state.dataProducts, ...response.data], isLoading: false })
       })
       .catch(err => {
         console.log(err)
       })
-
   }
-
-  filterLogic() {
-    if (this.state.filterBy === 'size') {
-      const base_default_2 = `http://192.168.43.166:3000/api/products?_page=${this.page}&_limit=20&?_sort=price`
-      return base_default_2
-    } else {
-      const base_default = `http://192.168.43.166:3000/api/products?_page=${this.page}&_limit=20`
-      return base_default
-    }
-  }
-
   /**
    * @method
    * This method is for loading data from serverr
@@ -51,7 +54,7 @@ export default class App extends Component {
   getMoreData = () => {
     this.page = this.page + 1
     this.setState({ isFetching: true }, () => {
-      Axios.get(`http://192.168.43.166:3000/api/products?_page=${this.page}&_limit=20`)
+      Axios.get(this.filterLogic())
         .then((response) => {
           this.setState({ dataProducts: [...this.state.dataProducts, ...response.data], isFetching: false })
         })
@@ -90,9 +93,9 @@ export default class App extends Component {
     this.setState({ isModalVisible: !this.state.isModalVisible })
   }
 
-  combineMethod = (filtersType) => {
-    this.toggleModal()
-    this.setState({ filterBy: filtersType })
+  combineMethod = async (filtersType) => {
+    await this.toggleModal()
+    await this.setState({ filterBy: filtersType })
   }
 
 
@@ -110,7 +113,7 @@ export default class App extends Component {
             <Text style={styles.textFilters}>
               Filters
             </Text>
-            <TouchableOpacity onPress={this.toggleModal} activeOpacity={0.8}>
+            <TouchableOpacity onPress={this.combineMethod} activeOpacity={0.8}>
               <Icon
                 name="filter"
                 size={22}
@@ -121,16 +124,16 @@ export default class App extends Component {
           </View>
         </LinearGradient>
         <Modal
-          isVisible={this.state.isModalVisible}
+          isVisible={false}
           animationIn="slideInLeft"
           animationOut="slideOutRight">
           <View style={styles.viewModal}>
             <Text>
               Filter By
             </Text>
-            <TouchableHighlight onPress={() => this.combineMethod('size')} style={styles.touchFilter}>
+            <TouchableHighlight onPress={() => this.combineMethod('price')} style={styles.touchFilter}>
               <View style={[styles.buttonFilter, { borderColor: '#3498db' }]}>
-                <Text style={[styles.textItemFilter, { color: '#3498db' }]}>size Z-A</Text>
+                <Text style={[styles.textItemFilter, { color: '#3498db' }]}>price Z-A</Text>
               </View>
             </TouchableHighlight>
             <TouchableHighlight onPress={this.toggleModal} style={styles.touchFilter}>
@@ -157,28 +160,7 @@ export default class App extends Component {
                 keyExtractor={(item, index) => index}
                 data={this.state.dataProducts}
                 renderItem={({ item, index }) =>
-                  <View style={styles.viewRowProduct}>
-                    <View style={styles.viewProduct}>
-                      <Image source={{ uri: 'https://i.picsum.photos/id/6/320/200.jpg' }}
-                        style={styles.imageProduct}
-                        resizeMode='cover'
-                      />
-                      <View style={styles.viewTextTitle}>
-                        <Text style={styles.textName}>{item.face}</Text>
-                      </View>
-                      <View style={styles.viewDesc}>
-                        <Text style={styles.textPrice}>$ {dollarFormatter(item.price)}</Text>
-                        <Text style={styles.textTime}>{compareDate(item.date)} days ago</Text>
-                      </View>
-                      <View style={styles.viewCart}>
-                        <Icon
-                          name="shopping-cart"
-                          size={22}
-                          color='#FFFFFF'
-                        />
-                      </View>
-                    </View>
-                  </View>
+                  <ListProducts item={item} />
                 }
                 ListFooterComponent={this.renderFooter}
               />
