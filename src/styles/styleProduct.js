@@ -14,6 +14,11 @@ const styles = StyleSheet.create({
     shadowRadius: 2.22,
     elevation: -3,
   },
+  viewLoader: {
+    flex: 1,
+    justifyContent: 'center',
+    alignItems: 'center',
+  },
   viewModal: {
     flex: 1,
     justifyContent: 'center',

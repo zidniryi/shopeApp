@@ -6,6 +6,7 @@ import LinearGradient from 'react-native-linear-gradient'
 import Axios from 'axios'
 import Modal from 'react-native-modal'
 import ListProducts from './components/ListProducts'
+import ButtonFilters from './components/ButtonFilters'
 export default class App extends Component {
   constructor(props) {
     super(props)
@@ -24,6 +25,13 @@ export default class App extends Component {
     // Increased every data loaded
     this.loadFistData()
   }
+
+  // componentDidUpdate(prevProps, prevState) {
+  //   // only update chart if the data has changed
+  //   if (prevProps.data !== this.state.filterBy) {
+  //     this.loadFistData()
+  //   }
+  // }
 
   filterLogic() {
     if (this.state.filterBy === 'price') {
@@ -98,9 +106,14 @@ export default class App extends Component {
     await this.setState({ filterBy: filtersType })
   }
 
-
   render() {
-    console.log(this.state.filterBy)
+    if (this.state.isLoading) {
+      return (
+        <View style={styles.viewLoader}>
+          <ActivityIndicator size="large" color='#53AD15' />
+        </View>
+      )
+    }
     return (
       <View style={styles.viewContainer}>
         <LinearGradient colors={['#FFFFFF', '#F4F4F4', '#F4F4F4']} style={styles.viewSorting}>
@@ -124,48 +137,38 @@ export default class App extends Component {
           </View>
         </LinearGradient>
         <Modal
-          isVisible={false}
+          isVisible={this.state.isModalVisible}
           animationIn="slideInLeft"
           animationOut="slideOutRight">
           <View style={styles.viewModal}>
             <Text>
               Filter By
             </Text>
-            <TouchableHighlight onPress={() => this.combineMethod('price')} style={styles.touchFilter}>
-              <View style={[styles.buttonFilter, { borderColor: '#3498db' }]}>
-                <Text style={[styles.textItemFilter, { color: '#3498db' }]}>price Z-A</Text>
-              </View>
-            </TouchableHighlight>
-            <TouchableHighlight onPress={this.toggleModal} style={styles.touchFilter}>
-              <View style={[styles.buttonFilter, { borderColor: '#2ecc71' }]}>
-                <Text style={[styles.textItemFilter, { color: '#2ecc71' }]}>Price Z-A</Text>
-              </View>
-            </TouchableHighlight>
-            <TouchableHighlight onPress={this.toggleModal} style={styles.touchFilter}>
-              <View style={[styles.buttonFilter, { borderColor: '#e74c3c' }]}>
-                <Text style={[styles.textItemFilter, { color: '#e74c3c' }]}>ID Z-A</Text>
-              </View>
-            </TouchableHighlight>
+            <ButtonFilters onPress={() => this.combineMethod('price')}>
+              By Price
+            </ButtonFilters>
+            <ButtonFilters onPress={() => this.combineMethod('price')}>
+              By Date
+            </ButtonFilters>
+            <ButtonFilters onPress={() => this.combineMethod('price')}>
+              By ID
+            </ButtonFilters>
+
           </View>
         </Modal>
-        {
-          (this.state.isLoading)
-            ?
-            (<ActivityIndicator size="large" color='#53AD15' />)
-            :
-            (
-              <FlatList
-                numColumns={2}
-                style={{ flex: 1 }}
-                keyExtractor={(item, index) => index}
-                data={this.state.dataProducts}
-                renderItem={({ item, index }) =>
-                  <ListProducts item={item} />
-                }
-                ListFooterComponent={this.renderFooter}
-              />
-            )
-        }
+
+
+        <FlatList
+          numColumns={2}
+          style={{ flex: 1 }}
+          keyExtractor={(item, index) => index}
+          data={this.state.dataProducts}
+          renderItem={({ item, index }) =>
+            <ListProducts item={item} />
+          }
+          ListFooterComponent={this.renderFooter}
+        />
+
       </View>
     )
   }
