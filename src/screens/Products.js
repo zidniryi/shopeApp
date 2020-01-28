@@ -29,7 +29,7 @@ class Products extends Component {
     this.setState({ isModalVisible: !this.state.isModalVisible })
   }
 
-  logicMethod() {
+  logicMethodList() {
     if (this.props.filterBy === 'price') {
       return <ListSortPrice />
     }
@@ -87,7 +87,7 @@ class Products extends Component {
             </ButtonFilters>
           </View>
         </Modal>
-        {this.logicMethod()}
+        {this.logicMethodList()}
       </View>
     )
   }

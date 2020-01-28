@@ -6,7 +6,24 @@ import compareDate from '../libs/compareDate'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
 export default class ListProducts extends PureComponent {
+
+  /**
+   * This is method that contain :
+   * for convert ISO date into common date 
+   * And logic for /days ago/ & /common date/
+   */
+  renderDate() {
+    const daysOfWeek = ['Mond', 'Tues', 'Wednes', 'Thurs', 'Frid', 'Sat', 'Sund']
+    const date = new Date(this.props.item.date)
+    const forrmattedDate = daysOfWeek[date.getDay()] + ', ' + date.getDate() + '-' + (date.getMonth() + 1) + '-' + date.getFullYear()
+    if (compareDate(this.props.item.date) >= 7) {
+      return <Text style={styles.textTime}>{forrmattedDate}</Text>
+    }
+    return <Text style={styles.textTime}>{compareDate(this.props.item.date)} days ago</Text>
+  }
   render() {
+    console.log('Date')
+    console.log(compareDate(this.props.item.date))
     return (
       <View style={styles.viewRowProduct}>
         <View style={styles.viewProduct}>
@@ -19,7 +36,7 @@ export default class ListProducts extends PureComponent {
           </View>
           <View style={styles.viewDesc}>
             <Text style={styles.textPrice}>$ {dollarFormatter(this.props.item.price)}</Text>
-            <Text style={styles.textTime}>{compareDate(this.props.item.date)} days ago</Text>
+            {this.renderDate()}
           </View>
           <View style={styles.viewCart}>
             <Icon
