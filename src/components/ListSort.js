@@ -1,13 +1,9 @@
 import React, { Component } from 'react'
 import { View, Text, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome'
-import styles from './styles/styleProduct'
-import LinearGradient from 'react-native-linear-gradient'
+import styles from '../styles/styleProduct'
 import Axios from 'axios'
-import Modal from 'react-native-modal'
-import ListProducts from './components/ListProducts'
-import ButtonFilters from './components/ButtonFilters'
-export default class List extends Component {
+import ListProducts from './ListProducts'
+export default class ListSort extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -26,9 +22,10 @@ export default class List extends Component {
     this.loadFistData()
   }
 
+
   loadFistData = () => {
     this.page = this.page + 1
-    Axios.get(`http://192.168.43.166:3000/api/products?_page=${this.page}&_limit=20`)
+    Axios.get(`http://192.168.43.166:3000/api/products?_sort=price&_page=${this.page}&_limit=20`)
       .then((response) => {
         console.log(response)
         this.setState({ dataProducts: [...this.state.dataProducts, ...response.data], isLoading: false })
@@ -44,7 +41,7 @@ export default class List extends Component {
   getMoreData = () => {
     this.page = this.page + 1
     this.setState({ isFetching: true }, () => {
-      Axios.get(`http://192.168.43.166:3000/api/products?_page=${this.page}&_limit=20`)
+      Axios.get(`http://192.168.43.166:3000/api/products?_sort=price&_page=${this.page}&_limit=20`)
         .then((response) => {
           this.setState({ dataProducts: [...this.state.dataProducts, ...response.data], isFetching: false })
         })
@@ -97,48 +94,9 @@ export default class List extends Component {
         </View>
       )
     }
+
     return (
       <View style={styles.viewContainer}>
-        <LinearGradient colors={['#FFFFFF', '#F4F4F4', '#F4F4F4']} style={styles.viewSorting}>
-          <View>
-            <Text style={styles.textResult}>
-              500 products found
-            </Text>
-          </View>
-          <View style={styles.viewFilter}>
-            <Text style={styles.textFilters}>
-              Filters
-            </Text>
-            <TouchableOpacity onPress={() => this.setState({ filterBy: 'price' })} activeOpacity={0.8}>
-              <Icon
-                name="filter"
-                size={22}
-                color='#53AD15'
-                style={styles.iconFilters}
-              />
-            </TouchableOpacity>
-          </View>
-        </LinearGradient>
-        <Modal
-          isVisible={this.state.isModalVisible}
-          animationIn="slideInLeft"
-          animationOut="slideOutRight">
-          <View style={styles.viewModal}>
-            <Text>
-              Filter By
-            </Text>
-            <ButtonFilters onPress={() => this.setState({ filterBy: 'price' })}>
-              By Price
-            </ButtonFilters>
-            <ButtonFilters onPress={() => this.combineMethod('price')}>
-              By Date
-            </ButtonFilters>
-            <ButtonFilters onPress={() => this.combineMethod('price')}>
-              By ID
-            </ButtonFilters>
-          </View>
-        </Modal>
-
 
         <FlatList
           numColumns={2}
