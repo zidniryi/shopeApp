@@ -1,12 +1,8 @@
 import React, { Component } from 'react'
 import { View, Text, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native'
-import Icon from 'react-native-vector-icons/FontAwesome'
 import styles from '../styles/styleProduct'
-import LinearGradient from 'react-native-linear-gradient'
 import Axios from 'axios'
-import Modal from 'react-native-modal'
 import ListProducts from './ListProducts'
-import ButtonFilters from './ButtonFilters'
 export default class List extends Component {
   constructor(props) {
     super(props)
@@ -99,47 +95,6 @@ export default class List extends Component {
     }
     return (
       <View style={styles.viewContainer}>
-        <LinearGradient colors={['#FFFFFF', '#F4F4F4', '#F4F4F4']} style={styles.viewSorting}>
-          <View>
-            <Text style={styles.textResult}>
-              500 products found
-            </Text>
-          </View>
-          <View style={styles.viewFilter}>
-            <Text style={styles.textFilters}>
-              Filters
-            </Text>
-            <TouchableOpacity onPress={() => this.setState({ filterBy: 'price' })} activeOpacity={0.8}>
-              <Icon
-                name="filter"
-                size={22}
-                color='#53AD15'
-                style={styles.iconFilters}
-              />
-            </TouchableOpacity>
-          </View>
-        </LinearGradient>
-        <Modal
-          isVisible={this.state.isModalVisible}
-          animationIn="slideInLeft"
-          animationOut="slideOutRight">
-          <View style={styles.viewModal}>
-            <Text>
-              Filter By
-            </Text>
-            <ButtonFilters onPress={() => this.setState({ filterBy: 'price' })}>
-              By Price
-            </ButtonFilters>
-            <ButtonFilters onPress={() => this.combineMethod('price')}>
-              By Date
-            </ButtonFilters>
-            <ButtonFilters onPress={() => this.combineMethod('price')}>
-              By ID
-            </ButtonFilters>
-          </View>
-        </Modal>
-
-
         <FlatList
           numColumns={2}
           style={{ flex: 1 }}

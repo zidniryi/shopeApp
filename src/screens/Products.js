@@ -7,71 +7,115 @@ import styles from '../styles/styleProduct'
 import ButtonFilters from '../components/ButtonFilters'
 import List from '../components/List'
 import ListSort from '../components/ListSort'
+import { connect } from 'react-redux'
+import { sortActions } from '../store/actions'
 
-export default class Products extends Component {
-    constructor(props) {
-        super(props)
-        this.state = {
-            isSort: false
-        }
+class Products extends Component {
+  constructor(props) {
+    super(props)
+    this.state = {
+      isSort: false
     }
+  }
 
-    render() {
+  render() {
+    console.log(this.props)
+    if (!this.state.isSort) {
+      return (
+        <View style={{ flex: 1 }}>
+          <LinearGradient colors={['#FFFFFF', '#F4F4F4', '#F4F4F4']} style={styles.viewSorting}>
+            <View>
+              <Text style={styles.textResult}>
+                                500 products found
+              </Text>
+            </View>
+            <View style={styles.viewFilter}>
+              <Text style={styles.textFilters}>
+                                Filters
+              </Text>
+              <TouchableOpacity onPress={() => this.setState({ filterBy: 'price' })} activeOpacity={0.8}>
+                <Icon
+                  name="filter"
+                  size={22}
+                  color='#53AD15'
+                  style={styles.iconFilters}
+                />
+              </TouchableOpacity>
+            </View>
+          </LinearGradient>
+          <Modal
+            isVisible={this.state.isModalVisible}
+            animationIn="slideInLeft"
+            animationOut="slideOutRight">
+            <View style={styles.viewModal}>
+              <Text>
+                                Filter By
+              </Text>
+              <ButtonFilters onPress={() => this.setState({ filterBy: 'price' })}>
+                                By Price
+              </ButtonFilters>
+              <ButtonFilters onPress={() => this.combineMethod('price')}>
+                                By Date
+              </ButtonFilters>
+              <ButtonFilters onPress={() => this.combineMethod('price')}>
+                                By ID
+              </ButtonFilters>
+            </View>
+          </Modal>
+          <List />
+        </View>
+      )
 
-        if (!this.state.isSort) {
-            return (
-                <View style={{ flex: 1 }}>
-                    <TouchableOpacity onPress={() => this.setState({ isSort: !this.state.isSort })}>
-                        <Text>Helo</Text>
-                    </TouchableOpacity>
-                    <List />
-                </View>
-            )
-
-        }
-        return (
-            <View style={{ flex: 1 }}>
-                <LinearGradient colors={['#FFFFFF', '#F4F4F4', '#F4F4F4']} style={styles.viewSorting}>
-                    <View>
-                        <Text style={styles.textResult}>
+    }
+    return (
+      <View style={{ flex: 1 }}>
+        <LinearGradient colors={['#FFFFFF', '#F4F4F4', '#F4F4F4']} style={styles.viewSorting}>
+          <View>
+            <Text style={styles.textResult}>
                             500 products found
             </Text>
-                    </View>
-                    <View style={styles.viewFilter}>
-                        <Text style={styles.textFilters}>
+          </View>
+          <View style={styles.viewFilter}>
+            <Text style={styles.textFilters}>
                             Filters
             </Text>
-                        <TouchableOpacity onPress={() => this.setState({ filterBy: 'price' })} activeOpacity={0.8}>
-                            <Icon
-                                name="filter"
-                                size={22}
-                                color='#53AD15'
-                                style={styles.iconFilters}
-                            />
-                        </TouchableOpacity>
-                    </View>
-                </LinearGradient>
-                <Modal
-                    isVisible={this.state.isModalVisible}
-                    animationIn="slideInLeft"
-                    animationOut="slideOutRight">
-                    <View style={styles.viewModal}>
-                        <Text>
+            <TouchableOpacity onPress={() => this.setState({ filterBy: 'price' })} activeOpacity={0.8}>
+              <Icon
+                name="filter"
+                size={22}
+                color='#53AD15'
+                style={styles.iconFilters}
+              />
+            </TouchableOpacity>
+          </View>
+        </LinearGradient>
+        <Modal
+          isVisible={this.state.isModalVisible}
+          animationIn="slideInLeft"
+          animationOut="slideOutRight">
+          <View style={styles.viewModal}>
+            <Text>
                             Filter By
             </Text>
-                        <ButtonFilters onPress={() => this.setState({ filterBy: 'price' })}>
+            <ButtonFilters onPress={() => this.setState({ filterBy: 'price' })}>
                             By Price
             </ButtonFilters>
-                        <ButtonFilters onPress={() => this.combineMethod('price')}>
+            <ButtonFilters onPress={() => this.combineMethod('price')}>
                             By Date
             </ButtonFilters>
-                        <ButtonFilters onPress={() => this.combineMethod('price')}>
+            <ButtonFilters onPress={() => this.combineMethod('price')}>
                             By ID
             </ButtonFilters>
-                    </View>
-                </Modal>
-                <ListSort />
-            </View>
-        )
-    }
+          </View>
+        </Modal>
+        <ListSort />
+      </View>
+    )
+  }
 }
+const mapStateToProps = (state) => ({
+  filterBy: state.filterBy
+})
+
+
+export default connect(mapStateToProps, { sortActions })(Products)
