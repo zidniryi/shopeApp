@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { View, Text, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native'
 import styles from '../styles/styleProduct'
-import Axios from 'axios'
 import ListProducts from './ListProducts'
 import { connect } from 'react-redux'
 import Adds from './Adds'
+import api from '../services/api'
 
 class ListSortPrice extends Component {
   constructor(props) {
@@ -28,7 +28,7 @@ class ListSortPrice extends Component {
 
   loadFistData = () => {
     this.page = this.page + 1
-    Axios.get(`http://192.168.43.166:3000/api/products?_sort=${this.props.filterBy}&_page=${this.page}&_limit=20`)
+    api.get(`products?_sort=${this.props.filterBy}&_page=${this.page}&_limit=20`)
       .then((response) => {
         console.log(response)
         this.setState({ dataProducts: [...this.state.dataProducts, ...response.data], isLoading: false })
@@ -44,7 +44,7 @@ class ListSortPrice extends Component {
   getMoreData = () => {
     this.page = this.page + 1
     this.setState({ isFetching: true }, () => {
-      Axios.get(`http://192.168.43.166:3000/api/products?_sort=${this.props.filterBy}&_page=${this.page}&_limit=20`)
+      api.get(`products?_sort=${this.props.filterBy}&_page=${this.page}&_limit=20`)
         .then((response) => {
           this.setState({ dataProducts: [...this.state.dataProducts, ...response.data], isFetching: false })
         })

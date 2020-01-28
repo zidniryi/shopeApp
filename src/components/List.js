@@ -1,11 +1,9 @@
 import React, { Component } from 'react'
-import { View, Text, FlatList, TouchableOpacity, ActivityIndicator, ImageBackground } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native'
 import styles from '../styles/styleProduct'
-import Axios from 'axios'
 import ListProducts from './ListProducts'
-import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions'
-import Icon from 'react-native-vector-icons/FontAwesome'
 import Adds from './Adds'
+import api from '../services/api'
 
 export default class List extends Component {
   constructor(props) {
@@ -28,7 +26,7 @@ export default class List extends Component {
 
   loadFistData = () => {
     this.page = this.page + 1
-    Axios.get(`http://192.168.43.166:3000/api/products?_page=${this.page}&_limit=20`)
+    api.get(`products?_page=${this.page}&_limit=20`)
       .then((response) => {
         console.log(response)
         this.setState({ dataProducts: [...this.state.dataProducts, ...response.data], isLoading: false })
@@ -44,7 +42,7 @@ export default class List extends Component {
   getMoreData = () => {
     this.page = this.page + 1
     this.setState({ isFetching: true }, () => {
-      Axios.get(`http://192.168.43.166:3000/api/products?_page=${this.page}&_limit=20`)
+      api.get(`products?_page=${this.page}&_limit=20`)
         .then((response) => {
           this.setState({ dataProducts: [...this.state.dataProducts, ...response.data], isFetching: false })
         })
