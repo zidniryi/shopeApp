@@ -14,26 +14,36 @@ class Products extends Component {
   constructor(props) {
     super(props)
     this.state = {
-      isSort: false
+      isSort: false,
+      isModalVisible: false
     }
   }
 
+  _setsState = async (valRedux) => {
+    await this.props.sortActions(valRedux)
+    await this._setModal()
+  }
+  _setModal = () => {
+    this.setState({ isModalVisible: !this.state.isModalVisible })
+  }
+
+
   render() {
     console.log(this.props)
-    if (!this.state.isSort) {
+    if (!this.props.filterBy) {
       return (
         <View style={{ flex: 1 }}>
           <LinearGradient colors={['#FFFFFF', '#F4F4F4', '#F4F4F4']} style={styles.viewSorting}>
             <View>
               <Text style={styles.textResult}>
-                                500 products found
+                500 products found
               </Text>
             </View>
             <View style={styles.viewFilter}>
               <Text style={styles.textFilters}>
-                                Filters
+                Filters
               </Text>
-              <TouchableOpacity onPress={() => this.setState({ filterBy: 'price' })} activeOpacity={0.8}>
+              <TouchableOpacity onPress={() => this.setState({ isModalVisible: !this.state.isModalVisible })} activeOpacity={0.8}>
                 <Icon
                   name="filter"
                   size={22}
@@ -49,16 +59,16 @@ class Products extends Component {
             animationOut="slideOutRight">
             <View style={styles.viewModal}>
               <Text>
-                                Filter By
+                Filter By
               </Text>
-              <ButtonFilters onPress={() => this.setState({ filterBy: 'price' })}>
-                                By Price
+              <ButtonFilters onPress={() => this._setsState('price')}>
+                By Price
               </ButtonFilters>
               <ButtonFilters onPress={() => this.combineMethod('price')}>
-                                By Date
+                By Date
               </ButtonFilters>
               <ButtonFilters onPress={() => this.combineMethod('price')}>
-                                By ID
+                By ID
               </ButtonFilters>
             </View>
           </Modal>
@@ -72,14 +82,14 @@ class Products extends Component {
         <LinearGradient colors={['#FFFFFF', '#F4F4F4', '#F4F4F4']} style={styles.viewSorting}>
           <View>
             <Text style={styles.textResult}>
-                            500 products found
+              500 products found
             </Text>
           </View>
           <View style={styles.viewFilter}>
             <Text style={styles.textFilters}>
-                            Filters
+              Filters
             </Text>
-            <TouchableOpacity onPress={() => this.setState({ filterBy: 'price' })} activeOpacity={0.8}>
+            <TouchableOpacity onPress={() => this.setState({ isModalVisible: !this.state.isModalVisible })} activeOpacity={0.8}>
               <Icon
                 name="filter"
                 size={22}
@@ -95,16 +105,16 @@ class Products extends Component {
           animationOut="slideOutRight">
           <View style={styles.viewModal}>
             <Text>
-                            Filter By
+              Filter By
             </Text>
-            <ButtonFilters onPress={() => this.setState({ filterBy: 'price' })}>
-                            By Price
+            <ButtonFilters onPress={() => this._setsState('price')}>
+              By Price
             </ButtonFilters>
             <ButtonFilters onPress={() => this.combineMethod('price')}>
-                            By Date
+              By Date
             </ButtonFilters>
             <ButtonFilters onPress={() => this.combineMethod('price')}>
-                            By ID
+              By ID
             </ButtonFilters>
           </View>
         </Modal>
