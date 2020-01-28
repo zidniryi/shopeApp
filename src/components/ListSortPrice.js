@@ -3,7 +3,9 @@ import { View, Text, FlatList, TouchableOpacity, ActivityIndicator } from 'react
 import styles from '../styles/styleProduct'
 import Axios from 'axios'
 import ListProducts from './ListProducts'
-export default class ListSort extends Component {
+import { connect } from 'react-redux'
+
+class ListSortPrice extends Component {
   constructor(props) {
     super(props)
     this.state = {
@@ -25,7 +27,7 @@ export default class ListSort extends Component {
 
   loadFistData = () => {
     this.page = this.page + 1
-    Axios.get(`http://192.168.43.166:3000/api/products?_sort=price&_page=${this.page}&_limit=20`)
+    Axios.get(`http://192.168.43.166:3000/api/products?_sort=${this.props.filterBy}&_page=${this.page}&_limit=20`)
       .then((response) => {
         console.log(response)
         this.setState({ dataProducts: [...this.state.dataProducts, ...response.data], isLoading: false })
@@ -41,7 +43,7 @@ export default class ListSort extends Component {
   getMoreData = () => {
     this.page = this.page + 1
     this.setState({ isFetching: true }, () => {
-      Axios.get(`http://192.168.43.166:3000/api/products?_sort=price&_page=${this.page}&_limit=20`)
+      Axios.get(`http://192.168.43.166:3000/api/products?_sort=${this.props.filterBy}&_page=${this.page}&_limit=20`)
         .then((response) => {
           this.setState({ dataProducts: [...this.state.dataProducts, ...response.data], isFetching: false })
         })
@@ -86,7 +88,7 @@ export default class ListSort extends Component {
   }
 
   render() {
-    console.log(this.state.filterBy)
+    console.log('Name')
     if (this.state.isLoading) {
       return (
         <View style={styles.viewLoader}>
@@ -115,3 +117,10 @@ export default class ListSort extends Component {
     )
   }
 }
+
+
+const mapStateToProps = (state) => ({
+  filterBy: state.filterBy
+})
+
+export default connect(mapStateToProps)(ListSortPrice)
