@@ -78,17 +78,7 @@ class ListSortPrice extends Component {
     )
   }
 
-  toggleModal = () => {
-    this.setState({ isModalVisible: !this.state.isModalVisible })
-  }
-
-  combineMethod = async (filtersType) => {
-    // await this.toggleModal()
-    await this.setState({ filterBy: filtersType })
-  }
-
   render() {
-    console.log('Name')
     if (this.state.isLoading) {
       return (
         <View style={styles.viewLoader}>

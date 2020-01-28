@@ -78,14 +78,6 @@ class ListSortID extends Component {
         )
     }
 
-    toggleModal = () => {
-        this.setState({ isModalVisible: !this.state.isModalVisible })
-    }
-
-    combineMethod = async (filtersType) => {
-        // await this.toggleModal()
-        await this.setState({ filterBy: filtersType })
-    }
 
     render() {
         console.log('Name')
