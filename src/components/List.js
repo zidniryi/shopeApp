@@ -1,8 +1,12 @@
 import React, { Component } from 'react'
-import { View, Text, FlatList, TouchableOpacity, ActivityIndicator } from 'react-native'
+import { View, Text, FlatList, TouchableOpacity, ActivityIndicator, ImageBackground } from 'react-native'
 import styles from '../styles/styleProduct'
 import Axios from 'axios'
 import ListProducts from './ListProducts'
+import { responsiveHeight, responsiveWidth, responsiveFontSize } from 'react-native-responsive-dimensions'
+import Icon from 'react-native-vector-icons/FontAwesome'
+import Adds from './Adds'
+
 export default class List extends Component {
   constructor(props) {
     super(props)
@@ -55,8 +59,10 @@ export default class List extends Component {
    * In footer FlatList Component
    */
   renderFooter = () => {
+    const randomPicture = Math.floor(1 + Math.random() * 20)
     return (
       <View style={styles.viewFooter}>
+        <Adds randomPicture={randomPicture} />
         <TouchableOpacity
           activeOpacity={0.7}
           style={styles.buttonShowMore}

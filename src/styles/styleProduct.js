@@ -52,7 +52,8 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
   },
   textResult: {
-    marginLeft: responsiveWidth(5.33)
+    marginLeft: responsiveWidth(5.33),
+    textTransform: 'capitalize'
   },
   viewFilter: {
     flexDirection: 'row',
@@ -151,6 +152,29 @@ const styles = StyleSheet.create({
     color: '#FFFFFF',
     fontSize: responsiveFontSize(2.4)
   },
+  viewAds: {
+    alignItems: 'center',
+    justifyContent: 'center',
+    marginBottom: responsiveHeight(2.33)
+  },
+  imgBackgroundAdds: {
+    width: 320,
+    height: 200,
+    flexDirection: 'row',
+    justifyContent: 'space-between'
+  },
+  iconAds: {
+    fontSize: responsiveFontSize(2.2),
+    marginVertical: responsiveHeight(1),
+    marginHorizontal: responsiveWidth(2.2),
+  },
+  textAds: {
+    fontSize: responsiveFontSize(2.2),
+    marginVertical: responsiveHeight(1),
+    marginHorizontal: responsiveWidth(2.2),
+    fontWeight: 'bold',
+    color: '#6CC6DC'
+  }
 })
 
 export default styles

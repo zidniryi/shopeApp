@@ -49,7 +49,7 @@ class Products extends Component {
         <LinearGradient colors={['#FFFFFF', '#F4F4F4', '#F4F4F4']} style={styles.viewSorting}>
           <View>
             <Text style={styles.textResult}>
-              500 products found
+              Sorted by {!this.props.filterBy ? 'Random' : this.props.filterBy}
             </Text>
           </View>
           <View style={styles.viewFilter}>
@@ -83,7 +83,7 @@ class Products extends Component {
               By ID
             </ButtonFilters>
             <ButtonFilters onPress={() => this._setsState('')}>
-              Unsort
+              Random
             </ButtonFilters>
           </View>
         </Modal>

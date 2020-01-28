@@ -5,6 +5,7 @@ import dollarFormatter from '../libs/dollarFormatter'
 import compareDate from '../libs/compareDate'
 import Icon from 'react-native-vector-icons/FontAwesome'
 
+
 export default class ListProducts extends PureComponent {
 
   /**
@@ -22,8 +23,6 @@ export default class ListProducts extends PureComponent {
     return <Text style={styles.textTime}>{compareDate(this.props.item.date)} days ago</Text>
   }
   render() {
-    console.log('Date')
-    console.log(compareDate(this.props.item.date))
     return (
       <View style={styles.viewRowProduct}>
         <View style={styles.viewProduct}>

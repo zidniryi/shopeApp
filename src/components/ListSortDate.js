@@ -4,6 +4,7 @@ import styles from '../styles/styleProduct'
 import Axios from 'axios'
 import ListProducts from './ListProducts'
 import { connect } from 'react-redux'
+import Adds from './Adds'
 
 class ListSortDate extends Component {
     constructor(props) {
@@ -58,8 +59,10 @@ class ListSortDate extends Component {
      * In footer FlatList Component
      */
     renderFooter = () => {
+        const randomPicture = Math.floor(1 + Math.random() * 20)
         return (
             <View style={styles.viewFooter}>
+                <Adds randomPicture={randomPicture} />
                 <TouchableOpacity
                     activeOpacity={0.7}
                     style={styles.buttonShowMore}
