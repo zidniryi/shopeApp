@@ -4,6 +4,7 @@ import styles from '../styles/styleProduct'
 import ListProducts from './ListProducts'
 import Adds from './Adds'
 import api from '../services/api'
+import ErrorServer from './ErrorServer'
 
 export default class List extends Component {
   constructor(props) {
@@ -13,7 +14,8 @@ export default class List extends Component {
       isLoading: true,
       isFetching: false,
       isModalVisible: false,
-      filterBy: ''
+      filterBy: '',
+      isError: false
     }
     // Default page in array is 0
     this.page = 0
@@ -32,6 +34,7 @@ export default class List extends Component {
         this.setState({ dataProducts: [...this.state.dataProducts, ...response.data], isLoading: false })
       })
       .catch(err => {
+        this.setState({ isError: true, isLoading: false })
         console.log(err)
       })
   }
@@ -47,7 +50,8 @@ export default class List extends Component {
           this.setState({ dataProducts: [...this.state.dataProducts, ...response.data], isFetching: false })
         })
         .catch((error) => {
-          console.error(error)
+          this.setState({ isError: true, isFetching: false })
+
         })
     })
   }
@@ -96,6 +100,9 @@ export default class List extends Component {
           <ActivityIndicator size="large" color='#53AD15' />
         </View>
       )
+    }
+    else if (this.state.isError) {
+      return <ErrorServer />
     }
     return (
       <View style={styles.viewContainer}>

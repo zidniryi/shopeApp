@@ -68,6 +68,8 @@ class Products extends Component {
         </LinearGradient>
         <Modal
           isVisible={this.state.isModalVisible}
+          animationIn="zoomInDown"
+          animationOut="zoomOutUp"
         >
           <View style={styles.viewModal}>
             <Text>
