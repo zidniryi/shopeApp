@@ -4,9 +4,11 @@ import styles from '../styles/styleProduct'
 import dollarFormatter from '../libs/dollarFormatter'
 import compareDate from '../libs/compareDate'
 import Icon from 'react-native-vector-icons/FontAwesome'
+import { TouchableOpacity } from 'react-native-gesture-handler'
+import { withNavigation } from 'react-navigation'
 
 
-export default class ListProducts extends PureComponent {
+class ListProducts extends PureComponent {
 
   /**
    * This is method that contain :
@@ -38,14 +40,18 @@ export default class ListProducts extends PureComponent {
             {this.renderDate()}
           </View>
           <View style={styles.viewCart}>
-            <Icon
-              name="shopping-cart"
-              size={22}
-              color='#FFFFFF'
-            />
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('DetailProduct', { data: this.props.item })}>
+              <Icon
+                name="shopping-cart"
+                size={22}
+                color='#FFFFFF'
+              />
+            </TouchableOpacity>
           </View>
         </View>
       </View>
     )
   }
 }
+
+export default withNavigation(ListProducts)
