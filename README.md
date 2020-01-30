@@ -42,3 +42,29 @@
 1. After every 20 products, we need to insert a random advertisement. 
 1. Prices formatted as dollars like .51.
 1. displayed in relative time (eg. “3 days ago”) unless they are older than 1 week, in which case the full date should be displayed.
+
+
+## Additional Features
+1. Generate Auto Color
+1. Product Details
+1. Profile Github API
+1. The Navigation Bar tab
+
+
+## Demo Android
+![https://raw.githubusercontent.com/zidniryi/shopeApp/master/demo/a1.png](https://raw.githubusercontent.com/zidniryi/shopeApp/master/demo/a1.png)
+
+![https://raw.githubusercontent.com/zidniryi/shopeApp/master/demo/a2.png](https://raw.githubusercontent.com/zidniryi/shopeApp/master/demo/a2.png)
+
+![https://raw.githubusercontent.com/zidniryi/shopeApp/master/demo/a3.png](https://raw.githubusercontent.com/zidniryi/shopeApp/master/demo/a3.png)
+
+![https://raw.githubusercontent.com/zidniryi/shopeApp/master/demo/a4.png](https://raw.githubusercontent.com/zidniryi/shopeApp/master/demo/a4.png)
+
+## Demo iOS
+![https://raw.githubusercontent.com/zidniryi/shopeApp/master/demo/i1.png](https://raw.githubusercontent.com/zidniryi/shopeApp/master/demo/i1.png)
+
+![https://raw.githubusercontent.com/zidniryi/shopeApp/master/demo/i2.png](https://raw.githubusercontent.com/zidniryi/shopeApp/master/demo/i2.png)
+
+![https://raw.githubusercontent.com/zidniryi/shopeApp/master/demo/i3.png](https://raw.githubusercontent.com/zidniryi/shopeApp/master/demo/i3.png)
+
+![https://raw.githubusercontent.com/zidniryi/shopeApp/master/demo/i4.png](https://raw.githubusercontent.com/zidniryi/shopeApp/master/demo/i4.png)
