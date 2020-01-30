@@ -28,7 +28,8 @@ const styles = StyleSheet.create({
     name: {
         fontSize: responsiveFontSize(5),
         color: '#696969',
-        fontWeight: '600'
+        fontWeight: '600',
+        textTransform: 'capitalize'
     },
     info: {
         fontSize: 16,
