@@ -1,4 +1,4 @@
-import { StyleSheet } from 'react-native'
+import { StyleSheet, Platform } from 'react-native'
 import { responsiveWidth, responsiveHeight, responsiveFontSize } from 'react-native-responsive-dimensions'
 
 const styles = StyleSheet.create({
@@ -76,11 +76,11 @@ const styles = StyleSheet.create({
     backgroundColor: '#FFFFFF',
     shadowColor: '#000',
     shadowOffset: {
-      width: 1,
-      height: 1,
+      width: Platform.OS === 'ios' ? 0.5 : 1,
+      height: Platform.OS === 'ios' ? 0.5 : 1,
     },
-    shadowOpacity: 3.22,
-    shadowRadius: 1.22,
+    shadowOpacity: Platform.OS === 'ios' ? 1 : 3.22,
+    shadowRadius: Platform.OS === 'ios' ? 0.8 : 1.22,
 
     elevation: 1,
     borderRadius: 10,
@@ -133,7 +133,7 @@ const styles = StyleSheet.create({
       height: 2,
     },
     shadowOpacity: 3.22,
-    shadowRadius: 6.22,
+    shadowRadius: Platform.OS === 'ios' ? 3.3 : 6.22,
   },
   viewFooter: {
     marginTop: responsiveHeight(1.33)
@@ -174,7 +174,22 @@ const styles = StyleSheet.create({
     marginHorizontal: responsiveWidth(2.2),
     fontWeight: 'bold',
     color: '#6CC6DC'
-  }
+  },
+  flex: {
+    flexDirection: 'row',
+  },
+  textSize: {
+    fontSize: 10,
+    fontWeight: '600',
+    textAlign: 'center',
+  },
+  textSizeValue: {
+    fontSize: 10,
+    fontWeight: 'bold',
+    textAlign: 'center',
+    color: '#EE532F',
+    marginLeft: 5,
+  },
 })
 
 export default styles

@@ -30,7 +30,6 @@ export default class List extends Component {
     this.page = this.page + 1
     api.get(`products?_page=${this.page}&_limit=20`)
       .then((response) => {
-        console.log(response)
         this.setState({ dataProducts: [...this.state.dataProducts, ...response.data], isLoading: false })
       })
       .catch(err => {
@@ -71,13 +70,13 @@ export default class List extends Component {
           style={styles.buttonShowMore}
           onPress={this.getMoreData}
         >
-          <Text style={styles.textShowMore}>Show More</Text>
           {
             (this.state.isFetching)
               ?
-              <ActivityIndicator color="#fff" style={{ marginLeft: 6 }} />
+              <Text style={styles.textShowMore}>Loading ...</Text>
               :
-              null
+              <Text style={styles.textShowMore}>Show More</Text>
+
           }
         </TouchableOpacity>
       </View>
@@ -113,7 +112,7 @@ export default class List extends Component {
           keyExtractor={(item, index) => index}
           data={this.state.dataProducts}
           renderItem={({ item, index }) =>
-            this.state.dataProducts.length == 0 ? <Text>No More Products</Text> : <ListProducts item={item} index={index} />
+            this.state.dataProducts.length == 0 ? <Text>End of catalogue </Text> : <ListProducts item={item} index={index} />
           }
           ListFooterComponent={this.renderFooter}
           extraData={this.state.filterBy}

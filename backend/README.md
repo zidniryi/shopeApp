@@ -17,7 +17,7 @@ Features
 - the product grid should automatically load more items as you scroll down.
 - display an animated "loading..." message while the user waits for the data to load.
 - to improve the user's experience, we should always pre-emptively fetch the next batch of results in advance, making use of idle-time.  But they still should not be displayed until the user has scrolled to the bottom of the product grid.
-- when the user reaches the end and there are no more products to display, show the message "~ end of catalogue ~".
+- when the user reaches the end and there are End of catalogue  to display, show the message "~ end of catalogue ~".
 
 ### Ads features
 

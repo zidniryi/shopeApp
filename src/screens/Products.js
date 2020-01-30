@@ -9,8 +9,9 @@ import List from '../components/List'
 import { connect } from 'react-redux'
 import { sortActions } from '../store/actions'
 import ListSortPrice from '../components/ListSortPrice'
-import ListSortDate from '../components/ListSortDate'
+import ListSortSize from '../components/ListSortSize'
 import ListSortID from '../components/ListSortID'
+import { SafeAreaView } from 'react-native-safe-area-context'
 
 class Products extends Component {
   constructor(props) {
@@ -33,8 +34,8 @@ class Products extends Component {
     if (this.props.filterBy === 'price') {
       return <ListSortPrice />
     }
-    if (this.props.filterBy === 'date') {
-      return <ListSortDate />
+    if (this.props.filterBy === 'size') {
+      return <ListSortSize />
     }
     else if (this.props.filterBy === 'id') {
       return <ListSortID />
@@ -45,7 +46,8 @@ class Products extends Component {
 
   render() {
     return (
-      <View style={{ flex: 1 }}>
+
+      <SafeAreaView style={{ flex: 1, backgroundColor: '#FFFFFF' }}>
         <LinearGradient colors={['#FFFFFF', '#F4F4F4', '#F4F4F4']} style={styles.viewSorting}>
           <View>
             <Text style={styles.textResult}>
@@ -78,8 +80,8 @@ class Products extends Component {
             <ButtonFilters onPress={() => this._setsState('price')}>
               By Price
             </ButtonFilters>
-            <ButtonFilters onPress={() => this._setsState('date')}>
-              By Date
+            <ButtonFilters onPress={() => this._setsState('size')}>
+              By Size
             </ButtonFilters>
             <ButtonFilters onPress={() => this._setsState('id')}>
               By ID
@@ -90,7 +92,7 @@ class Products extends Component {
           </View>
         </Modal>
         {this.logicMethodList()}
-      </View>
+      </SafeAreaView>
     )
   }
 }

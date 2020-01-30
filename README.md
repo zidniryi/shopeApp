@@ -26,3 +26,19 @@
 * pod install
 * cd ..
 * npx react-native run-ios _or_ react-native run-ios
+
+## Components Used
+* Stateless component
+* Pure component
+* Component classes
+
+# Features
+## Main Features
+1. Products are displayed in a grid.
+1. Sort products by “size”, “price” or “id”
+1. Automatically load more items 
+1. Display an animated “loading…” message while the user waits for the data to load.
+1. Show the message “~ end of catalogue ~” when products is empty.
+1. After every 20 products, we need to insert a random advertisement. 
+1. Prices formatted as dollars like .51.
+1. displayed in relative time (eg. “3 days ago”) unless they are older than 1 week, in which case the full date should be displayed.

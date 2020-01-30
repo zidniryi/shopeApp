@@ -35,9 +35,14 @@ class ListProducts extends PureComponent {
           <View style={styles.viewTextTitle}>
             <Text style={styles.textName}>{this.props.item.face}</Text>
           </View>
+
           <View style={styles.viewDesc}>
             <Text style={styles.textPrice}>$ {dollarFormatter(this.props.item.price)}</Text>
             {this.renderDate()}
+            <View style={styles.flex}>
+              <Text style={styles.textSize}>Size</Text>
+              <Text style={styles.textSizeValue}> {this.props.item.size}</Text>
+            </View>
           </View>
           <View style={styles.viewCart}>
             <TouchableOpacity onPress={() => this.props.navigation.navigate('DetailProduct', { data: this.props.item })}>

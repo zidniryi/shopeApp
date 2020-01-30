@@ -1,5 +1,5 @@
 import React, { Component } from 'react'
-import { Text, View } from 'react-native'
+import { Text, View, SafeAreaView } from 'react-native'
 import styles from '../styles/stylesDetail'
 
 export default class DetailProduct extends Component {
@@ -15,9 +15,11 @@ export default class DetailProduct extends Component {
   render() {
     const detailProduct = this.props.navigation.state.params.data
     return (
-      <View style={[styles.viewContainer]}>
-        <Text style={[styles.textFace, { color: this.randomColor() }]}> {detailProduct.face} </Text>
-      </View>
+      <SafeAreaView style={[styles.viewContainer]}>
+        <View style={[styles.viewContainer]}>
+          <Text style={[styles.textFace, { color: this.randomColor(), fontSize: detailProduct.size }]}> {detailProduct.face} </Text>
+        </View>
+      </SafeAreaView>
     )
   }
 }
