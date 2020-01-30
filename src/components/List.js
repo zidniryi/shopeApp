@@ -51,6 +51,7 @@ export default class List extends Component {
         })
         .catch((error) => {
           this.setState({ isError: true, isFetching: false })
+          console.log(error)
 
         })
     })
@@ -112,7 +113,7 @@ export default class List extends Component {
           keyExtractor={(item, index) => index}
           data={this.state.dataProducts}
           renderItem={({ item, index }) =>
-            <ListProducts item={item} index={index} />
+            this.state.dataProducts.length == 0 ? <Text>No More Products</Text> : <ListProducts item={item} index={index} />
           }
           ListFooterComponent={this.renderFooter}
           extraData={this.state.filterBy}

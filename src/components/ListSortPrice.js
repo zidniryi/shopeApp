@@ -5,6 +5,7 @@ import ListProducts from './ListProducts'
 import { connect } from 'react-redux'
 import Adds from './Adds'
 import api from '../services/api'
+import ErrorServer from './ErrorServer'
 
 class ListSortPrice extends Component {
   constructor(props) {
@@ -35,6 +36,8 @@ class ListSortPrice extends Component {
       })
       .catch(err => {
         console.log(err)
+        this.setState({ isError: true, isLoading: false })
+
       })
   }
   /**
@@ -50,6 +53,8 @@ class ListSortPrice extends Component {
         })
         .catch((error) => {
           console.error(error)
+          this.setState({ isError: true, isLoading: false })
+
         })
     })
   }
@@ -89,6 +94,9 @@ class ListSortPrice extends Component {
         </View>
       )
     }
+    else if (this.state.isError) {
+      return <ErrorServer />
+    }
 
     return (
       <View style={styles.viewContainer}>
@@ -99,7 +107,8 @@ class ListSortPrice extends Component {
           keyExtractor={(item, index) => index}
           data={this.state.dataProducts}
           renderItem={({ item, index }) =>
-            <ListProducts item={item} index={index} />
+            this.state.dataProducts.length == 0 ? <Text>No More Products</Text> : <ListProducts item={item} index={index} />
+
           }
           ListFooterComponent={this.renderFooter}
           extraData={this.state.filterBy}

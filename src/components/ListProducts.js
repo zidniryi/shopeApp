@@ -40,7 +40,7 @@ class ListProducts extends PureComponent {
             {this.renderDate()}
           </View>
           <View style={styles.viewCart}>
-            <TouchableOpacity onPress={() => this.props.navigation.navigate('Profile', { data: this.props.item })}>
+            <TouchableOpacity onPress={() => this.props.navigation.navigate('DetailProduct', { data: this.props.item })}>
               <Icon
                 name="shopping-cart"
                 size={22}
