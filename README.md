@@ -42,6 +42,7 @@
 1. After every 20 products, we need to insert a random advertisement. 
 1. Prices formatted as dollars like .51.
 1. displayed in relative time (eg. “3 days ago”) unless they are older than 1 week, in which case the full date should be displayed.
+1. Font are displayed by the size in detail
 
 
 ## Additional Features
